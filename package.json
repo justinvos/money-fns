@@ -1,0 +1,16 @@
+{
+  "name": "money-fns",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-node ./src/tests/general.test.ts"
+  },
+  "author": "Justin Vos",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.12.14",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
+  }
+}
