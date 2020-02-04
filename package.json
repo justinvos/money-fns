@@ -1,7 +1,7 @@
 {
   "name": "money-fns",
-  "version": "0.2.0",
-  "description": "money-fns is a modern, FP-oriented Money calculation helper library.",
+  "version": "0.3.0",
+  "description": "Next-generation Money library (FP, ESM, BigInt).",
   "type": "module",
   "main": "index.js",
   "module": "./src/index.js",
