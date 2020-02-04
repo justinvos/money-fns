@@ -33,6 +33,18 @@ export function fromCents (cents) {
 }
 
 /**
+ * Adds the two amounts terms into a sum amount.
+ * 
+ * @param {string[]} leftAmount
+ * @param {string[]} rightAmount
+ * @returns {string}
+ */
+export function addAmount (leftAmount, rightAmount) {
+  const total = toCents(leftAmount) + toCents(rightAmount)
+  return fromCents(total)
+}
+
+/**
  * Adds all of the amounts terms into a sum amount.
  * 
  * @param {string[]} amounts 
@@ -76,7 +88,7 @@ export function mulAmounts (...amounts) {
 }
 
 /**
- * Multiplies all the two factors amount into the product amount.
+ * Multiplies the two factors amount into the product amount.
  * 
  * @param {string} leftAmount 
  * @param {string} rightAmount
