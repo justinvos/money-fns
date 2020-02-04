@@ -4,7 +4,7 @@
  * @param {number} float 
  * @returns {string}
  */
-function floatToAmount (float) {
+export function floatToAmount (float) {
   const cents = BigInt(Math.round(float * 100))
   return fromCents(cents)
 }
@@ -15,7 +15,7 @@ function floatToAmount (float) {
  * @param {string} amount 
  * @returns {bigint}
  */
-function toCents (amount) {
+export function toCents (amount) {
   const [dollars, cents] = amount.split('.')
   return BigInt(dollars) * BigInt(100) + BigInt(cents)
 }
@@ -26,7 +26,7 @@ function toCents (amount) {
  * @param {bigint} cents 
  * @returns {string}
  */
-function fromCents (cents) {
+export function fromCents (cents) {
   const dollars = cents / BigInt(100)
   const remainder = cents % BigInt(100)
   return `${dollars}.${remainder < 10 ? '0' : ''}${remainder}`
@@ -38,7 +38,7 @@ function fromCents (cents) {
  * @param {string[]} amounts 
  * @returns {string}
  */
-function addAmounts (...amounts) {
+export function addAmounts (...amounts) {
   let total = BigInt(0)
 
   for (const amount of amounts) {
@@ -55,7 +55,7 @@ function addAmounts (...amounts) {
  * @param {string} subtrahend 
  * @returns {string}
  */
-function subAmount (minuend, subtrahend) {
+export function subAmount (minuend, subtrahend) {
   return fromCents(toCents(minuend) - toCents(subtrahend))
 }
 
@@ -65,7 +65,7 @@ function subAmount (minuend, subtrahend) {
  * @param {string[]} amounts 
  * @returns {string}
  */
-function mulAmounts (...amounts) {
+export function mulAmounts (...amounts) {
   let product = '1.00'
 
   for (const amount of amounts) {
@@ -82,11 +82,6 @@ function mulAmounts (...amounts) {
  * @param {string} rightAmount
  * @returns {string}
  */
-function mulAmount (leftAmount, rightAmount) {
+export function mulAmount (leftAmount, rightAmount) {
   return fromCents(toCents(leftAmount) * toCents(rightAmount) / BigInt(100))
 }
-
-exports.floatToAmount = floatToAmount
-exports.addAmounts = addAmounts
-exports.subAmount = subAmount
-exports.mulAmounts = mulAmounts
