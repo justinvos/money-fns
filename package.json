@@ -1,10 +1,16 @@
 {
   "name": "money-fns",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "money-fns is a modern, FP-oriented Money calculation helper library.",
+  "type": "module",
   "main": "index.js",
+  "module": "./src/index.js",
   "scripts": {
     "test": "jest --config=./jest.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/justinvos/money-fns.git"
   },
   "author": "Justin Vos",
   "license": "MIT",
