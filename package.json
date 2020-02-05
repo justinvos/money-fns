@@ -1,11 +1,11 @@
 {
   "name": "money-fns",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Next-generation Money library (FP, ESM, BigInt).",
   "keywords": ["money", "amount", "currency", "fp", "functional", "pure"],
   "type": "module",
-  "main": "./src/index.js",
-  "module": "./src/index.js",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.esm.js",
   "scripts": {
     "test": "jest --config=./jest.config.js"
   },

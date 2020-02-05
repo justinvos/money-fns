@@ -1,4 +1,4 @@
-const { addAmounts, floatToAmount, mulAmounts, subAmount } = require('../index')
+const { addAmounts, floatToAmount, mulAmounts, subAmount } = require('../../dist/index.umd')
 
 test('addAmounts adds each amount parameter', () => {
   expect(addAmounts('1.00', '2.00')).toBe('3.00')
