@@ -2,6 +2,7 @@
   "name": "money-fns",
   "version": "0.3.0",
   "description": "Next-generation Money library (FP, ESM, BigInt).",
+  "keywords": ["money", "amount", "currency", "fp", "functional", "pure"],
   "type": "module",
   "main": "index.js",
   "module": "./src/index.js",
