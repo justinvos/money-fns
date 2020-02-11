@@ -2,12 +2,19 @@
   "name": "money-fns",
   "version": "0.3.2",
   "description": "Next-generation Money library (FP, ESM, BigInt).",
-  "keywords": ["money", "amount", "currency", "fp", "functional", "pure"],
+  "keywords": [
+    "money",
+    "amount",
+    "currency",
+    "fp",
+    "functional",
+    "pure"
+  ],
   "type": "module",
   "main": "./src/index.js",
   "module": "./src/index.js",
   "scripts": {
-    "test": "jest --config=./jest.config.js"
+    "test": "node ./src/tests/general.test.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +23,6 @@
   "author": "Justin Vos",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^24.9.0"
+    "colors": "^1.4.0"
   }
 }
