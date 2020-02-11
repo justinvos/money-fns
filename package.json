@@ -1,6 +1,6 @@
 {
   "name": "money-fns",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Next-generation Money library (FP, ESM, BigInt).",
   "keywords": [
     "money",
