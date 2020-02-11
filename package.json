@@ -13,6 +13,7 @@
   "type": "module",
   "main": "./src/index.js",
   "module": "./src/index.js",
+  "sideEffects": false,
   "scripts": {
     "test": "node ./src/tests/general.test.js"
   },
