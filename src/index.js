@@ -45,31 +45,25 @@ function fromInt (sub, options = {}) {
 /**
  * Adds the two amounts terms into a sum amount.
  * 
- * @param {string[]} leftAmount
- * @param {string[]} rightAmount
- * @param {object} options 
+ * @param {string} leftAmount
+ * @param {string} rightAmount 
  * @returns {string}
  */
-export function addAmount (leftAmount, rightAmount, options = {}) {
-  const total = toInt(leftAmount, options) + toInt(rightAmount, options)
-  return fromInt(total, options)
+export function addAmount(leftAmount, rightAmount) {
+  const total = toInt(leftAmount) + toInt(rightAmount);
+  return fromInt(total);
 }
 
 /**
  * Adds all of the amounts terms into a sum amount.
  * 
  * @param {string[]} amounts 
- * @param {object} options 
  * @returns {string}
  */
-export function addAmounts (amounts, options = {}) {
-  let total = BigInt(0)
-
-  for (const amount of amounts) {
-    total += toInt(amount, options)
-  }
-
-  return fromInt(total, options)
+export function sumAmounts (amounts) {
+  return fromInt(amounts.reduce((total, amount) => {
+    return total + toInt(amount);
+  }, BigInt(0)));
 }
 
 /**
@@ -77,38 +71,27 @@ export function addAmounts (amounts, options = {}) {
  * 
  * @param {string} minuend 
  * @param {string} subtrahend 
- * @param {object} options 
  * @returns {string}
  */
-export function subAmount (minuend, subtrahend, options = {}) {
-  return fromInt(toInt(minuend, options) - toInt(subtrahend, options), options)
+export function subAmount(minuend, subtrahend, options = {}) {
+  return fromInt(toInt(minuend) - toInt(subtrahend), options);
 }
 
 /**
- * Multiplies all the amount factors into the product amount.
+ * Multiplies the amount by the factor into the product amount.
  * 
- * @param {string[]} amounts 
- * @param {object} options 
+ * @param {number} factor 
+ * @param {string} amount 
  * @returns {string}
  */
-export function mulAmounts (amounts, options) {
-  let product = '1.00'
-
-  for (const amount of amounts) {
-    product = mulAmount(product, amount, options)
+export function mulAmount (factor, optionalAmount) {
+  function calc(amount) {
+    return fromInt(BigInt(factor) * toInt(amount));
   }
 
-  return product
-}
-
-/**
- * Multiplies the two factors amount into the product amount.
- * 
- * @param {string} leftAmount 
- * @param {string} rightAmount 
- * @param {object} options 
- * @returns {string}
- */
-export function mulAmount (leftAmount, rightAmount, options = {}) {
-  return fromInt(toInt(leftAmount, options) * toInt(rightAmount, options) / BigInt(100), options)
+  if (optionalAmount) {
+    return calc(optionalAmount);
+  } else {
+    return calc;
+  }
 }
