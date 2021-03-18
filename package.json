@@ -1,6 +1,6 @@
 {
   "name": "money-fns",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Next-generation Money library (FP, ESM, BigInt).",
   "keywords": [
     "money",
@@ -11,10 +11,16 @@
     "pure"
   ],
   "type": "module",
-  "main": "./src/index.js",
-  "module": "./src/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
   "sideEffects": false,
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
   "scripts": {
+    "build:esm": "esbuild src/index.js --bundle --format=esm --outfile=lib/esm/index.js",
+    "build:cjs": "esbuild src/index.js --bundle --format=cjs --outfile=lib/cjs/index.js",
     "test": "node ./src/tests/general.test.js"
   },
   "repository": {
@@ -24,6 +30,8 @@
   "author": "Justin Vos",
   "license": "MIT",
   "devDependencies": {
-    "colors": "^1.4.0"
-  }
+    "colors": "^1.4.0",
+    "esbuild": "^0.9.3"
+  },
+  "dependencies": {}
 }
