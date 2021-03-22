@@ -18,9 +18,11 @@
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
+  "types": "lib/types/index.d.ts",
   "scripts": {
-    "build:esm": "esbuild src/index.js --bundle --format=esm --outfile=lib/esm/index.js",
-    "build:cjs": "esbuild src/index.js --bundle --format=cjs --outfile=lib/cjs/index.js",
+    "build:esm": "esbuild src/index.ts --bundle --format=esm --outfile=lib/esm/index.js",
+    "build:cjs": "esbuild src/index.ts --bundle --format=cjs --outfile=lib/cjs/index.js",
+    "build:types": "tsc",
     "test": "node ./src/tests/general.test.js"
   },
   "repository": {
@@ -31,7 +33,8 @@
   "license": "MIT",
   "devDependencies": {
     "colors": "^1.4.0",
-    "esbuild": "^0.9.3"
+    "esbuild": "^0.9.3",
+    "typescript": "^4.2.3"
   },
   "dependencies": {}
 }
