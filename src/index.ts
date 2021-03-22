@@ -1,5 +1,13 @@
-const defaults = {
+const defaults: Options = {
   precision: 2
+}
+
+interface OptionsParameter {
+    precision?: number
+}
+
+interface Options {
+    precision: number
 }
 
 /**
@@ -9,8 +17,8 @@ const defaults = {
  * @param {object} options 
  * @returns {string}
  */
-export function floatToAmount (float, options = {}) {
-  const { precision } = { ...defaults, ...options }
+export function floatToAmount (float: number, options: OptionsParameter = {}): string {
+  const { precision }: Options = { ...defaults, ...options }
   const int = BigInt(Math.round(float * (10 ** precision)))
   return fromInt(int)
 }
@@ -22,7 +30,7 @@ export function floatToAmount (float, options = {}) {
  * @param {object} options 
  * @returns {bigint}
  */
-function toInt (amount, options = {}) {
+function toInt (amount: string, options: OptionsParameter = {}): bigint {
   const { precision } = { ...defaults, ...options }
   const [full, sub] = amount.split('.')
   return BigInt(full) * BigInt(10 ** precision) + BigInt(sub)
@@ -35,7 +43,7 @@ function toInt (amount, options = {}) {
  * @param {object} options 
  * @returns {string}
  */
-function fromInt (sub, options = {}) {
+function fromInt (sub: bigint, options: OptionsParameter = {}): string {
   const { precision } = { ...defaults, ...options }
   const full = sub / BigInt(10 ** precision)
   const remainder = sub % BigInt(10 ** precision)
@@ -49,7 +57,7 @@ function fromInt (sub, options = {}) {
  * @param {string} rightAmount 
  * @returns {string}
  */
-export function addAmount(leftAmount, rightAmount) {
+export function addAmount(leftAmount: string, rightAmount: string): string {
   const total = toInt(leftAmount) + toInt(rightAmount);
   return fromInt(total);
 }
@@ -60,7 +68,7 @@ export function addAmount(leftAmount, rightAmount) {
  * @param {string[]} amounts 
  * @returns {string}
  */
-export function sumAmounts (amounts) {
+export function sumAmounts(amounts: string[]): string {
   return fromInt(amounts.reduce((total, amount) => {
     return total + toInt(amount);
   }, BigInt(0)));
@@ -73,25 +81,17 @@ export function sumAmounts (amounts) {
  * @param {string} subtrahend 
  * @returns {string}
  */
-export function subAmount(minuend, subtrahend, options = {}) {
+export function subAmount(minuend: string, subtrahend: string, options: OptionsParameter = {}) {
   return fromInt(toInt(minuend) - toInt(subtrahend), options);
 }
 
 /**
  * Multiplies the amount by the factor into the product amount.
  * 
+ * @param {string} number 
  * @param {number} factor 
- * @param {string} amount 
  * @returns {string}
  */
-export function mulAmount (factor, optionalAmount) {
-  function calc(amount) {
-    return fromInt(BigInt(factor) * toInt(amount));
-  }
-
-  if (optionalAmount) {
-    return calc(optionalAmount);
-  } else {
-    return calc;
-  }
+export function scaleAmount(amount: string, factor: number): string {
+  return fromInt(BigInt(factor) * toInt(amount));
 }
