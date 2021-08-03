@@ -160,3 +160,30 @@ export function isAmountEqual(leftAmount: string, rightAmount: string, options: 
 export function roundAmount(amount: string, nearest: string, options: OptionsParameter = {}): string {
   return fromInt(BigInt(Math.round(Number(toInt(amount)) / Number(toInt(nearest)))) * toInt(nearest));
 }
+
+interface FormatOptionsParameter {
+  commas?: boolean
+  decimals?: boolean
+}
+
+const formatDefaults: FormatOptionsParameter = {
+  commas: true,
+  decimals: false
+}
+
+/**
+ * Formats the amount with commas and/or decimals.
+ * @param {string} amount
+ * @param {FormatOptionsParameter} options
+ */
+export function formatAmount(amount: string, options: FormatOptionsParameter = {}): string {
+  const { commas, decimals } = { ...formatDefaults, ...options };
+
+  const number = decimals ? parseFloat(amount) : parseInt(amount);
+  
+  if (commas) {
+    return number.toLocaleString();
+  }
+
+  return number.toString();
+}
