@@ -30,6 +30,24 @@ export function isAmountPositive(amount: Amount): boolean {
   return toInteger(amount) > 0n;
 }
 
+export function isAmountNegative(amount: Amount): boolean {
+  return toInteger(amount) < 0n;
+}
+
+export function isAmountZero(amount: Amount): boolean {
+  return amount === "0.00";
+}
+
+export function compareAmount(a: Amount, b: Amount): number {
+  return Math.sign(Number(toInteger(a) - toInteger(b)));
+}
+
+export type CurrencyCode = "USD";
+
+export function formatAmount(amount: Amount, currency: CurrencyCode): string {
+  return Number(amount).toLocaleString("en-US", { maximumFractionDigits: 2 });
+}
+
 export function floatToAmount(float: number): Amount {
   const full = float > 0 ? Math.floor(float) : Math.ceil(float);
   const sub = BigInt(Math.abs(Math.round((float % 1) * 100)));

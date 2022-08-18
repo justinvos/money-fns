@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- compareAmount
+- formatAmount with USD support
+- isAmountNegative
+- isAmountZero
+
 ### Changed
 
 - Renamed addAmount to addAmounts
