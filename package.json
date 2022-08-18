@@ -1,6 +1,6 @@
 {
   "name": "money-fns",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0",
   "description": "Zero-dependency Money library (FP, ESM, BigInt, Typescript).",
   "keywords": [
     "money",
