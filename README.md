@@ -1,6 +1,6 @@
 # money-fns
 
-**money-fns** is a Zero-dependency Money library built with BigInt and an FP-oriented design.
+**money-fns** is a zero-dependency Money library built with BigInt and an FP-oriented design.
 
 ## Installation
 
@@ -28,6 +28,8 @@ multiplyAmount('5.00', 3n) // '15.00'
 floatToAmount(4.507) // '4.51'
 
 sumAmounts(['1.00', '2.00', '4.00']) // '7.00'
+discountAmount('100.00', 2.5) // '97.50'
+discountAmount('200.00', 4.28) // '191.44'
 
 isAmountPositive('12.00') // true
 isAmountPositive('-12.00') // false

@@ -26,6 +26,12 @@ export function divideAmount(amount: Amount, divisor: bigint): Amount {
   return toAmount(toInteger(amount) / divisor);
 }
 
+export function discountAmount(amount: Amount, percentage: number): Amount {
+  return toAmount(
+    (toInteger(amount) * (10000n - BigInt(percentage * 100))) / 10000n
+  );
+}
+
 export function isAmountPositive(amount: Amount): boolean {
   return toInteger(amount) > 0n;
 }
