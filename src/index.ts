@@ -1,7 +1,5 @@
 export type Amount = `${bigint}.${bigint}` | `${bigint}.0${bigint}`;
 
-const myAmount: Amount = "12.0";
-
 export function sumAmounts(...amounts: Amount[]): Amount {
   const integers = amounts.map(toInteger);
   const integerTotal = integers.reduce((accumulator, integer) => {
