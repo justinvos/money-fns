@@ -1,7 +1,7 @@
 {
   "name": "money-fns",
-  "version": "1.0.0-alpha.2",
-  "description": "Zero-dependency Money library (FP, ESM, BigInt).",
+  "version": "1.0.0-alpha.3",
+  "description": "Zero-dependency Money library (FP, ESM, BigInt, Typescript).",
   "keywords": [
     "money",
     "amount",
@@ -26,6 +26,9 @@
     "url": "git://github.com/justinvos/money-fns.git"
   },
   "author": "Justin Vos",
+  "contributors": [
+    "Justin Vos <justin@vos.nz>"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.13.10",
