@@ -11,9 +11,14 @@
     "pure"
   ],
   "sideEffects": false,
+  "typings": "lib/types/index.d.ts",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
   "scripts": {
+    "build:esm": "esbuild src/index.ts --format=esm --outfile=lib/esm/index.js",
     "build:cjs": "esbuild src/index.ts --format=cjs --outfile=lib/cjs/index.js",
     "build:types": "tsc",
+    "build": "yarn build:esm && yarn build:cjs && yarn build:types",
     "test": "jest"
   },
   "repository": {
