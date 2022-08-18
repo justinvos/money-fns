@@ -19,7 +19,7 @@ yarn add money-fns
 ## Usage
 
 ```
-import { addAmounts, discountAmount, floatToAmount, isAmountPositive, isAmountNegative, isAmountZero, isValidAmount, multiplyAmount, subtractAmount, sumAmounts } from 'money-fns'
+import { addAmounts, compareAmount, discountAmount, floatToAmount, formatAmount, isAmountPositive, isAmountNegative, isAmountZero, isValidAmount, multiplyAmount, subtractAmount, sumAmounts } from 'money-fns'
 
 addAmounts('1.00', '2.00') // '3.00'
 subtractAmount('3.00', '2.00') // '1.00'
@@ -34,9 +34,12 @@ discountAmount('200.00', 4.28) // '191.44'
 isAmountPositive('12.00') // true
 isAmountNegative('-12.00') // true
 isAmountZero('0.00') // true
+compareAmount('1.00', '3.00') // -1
 
 isValidAmount('0') // false
 isValidAmount('0.00') // true
+
+formatAmount('USD', '1234.00') // 1,234.00
 ```
 
 ### Amount datatype
