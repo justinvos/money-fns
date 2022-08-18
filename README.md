@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="money-fns" title="money-fns" src="https://raw.githubusercontent.com/money-fns/money-fns/master/img/money-fns.svg" width="300" />
+  <img alt="money-fns" title="money-fns" src="https://raw.githubusercontent.com/justinvos/money-fns/master/img/money-fns.svg" width="300" />
 </p>
 
 **money-fns** is a zero-dependency Money library built with BigInt and an FP-oriented design.
