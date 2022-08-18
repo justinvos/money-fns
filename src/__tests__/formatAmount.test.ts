@@ -1,9 +1,9 @@
-import { formatAmount } from '../index';
+import { formatAmount } from "../index";
 
-test('formatAmount(\'1234.56\') with default options returns 1,234', () => {
-  expect(formatAmount('1234.56')).toBe('1,234');
+test("formatAmount converts 1234.56 to 1,234.56", () => {
+  expect(formatAmount("1234.56", "USD")).toBe("1,234.56");
 });
 
-test('formatAmount(\'1234.56\') with decimals: true returns 1,234.56', () => {
-  expect(formatAmount('1234.56', { decimals: true })).toBe('1,234.56');
+test("formatAmount converts 123.45 to 123.45", () => {
+  expect(formatAmount("123.45", "USD")).toBe("123.45");
 });
