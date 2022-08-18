@@ -19,11 +19,11 @@ yarn add money-fns
 ## Usage
 
 ```
-import { addAmount, floatToAmount, isAmountPositive, multiplyAmount, subtractAmount, sumAmounts } from 'money-fns'
+import { addAmounts, floatToAmount, isAmountPositive, multiplyAmount, subtractAmount, sumAmounts } from 'money-fns'
 
-addAmount('1.00', '2.00') // '3.00'
+addAmounts('1.00', '2.00') // '3.00'
 subtractAmount('3.00', '2.00') // '1.00'
-multiplyAmount('5.00', 3) // '15.00'
+multiplyAmount('5.00', 3n) // '15.00'
 
 floatToAmount(4.507) // '4.51'
 
@@ -46,4 +46,4 @@ These values are passed around as Strings but you can import the Amount and use 
 
 ## Acknowledgments
 
-money-fns was heavily inspired by https://github.com/ikr/money-math. This library hopes to bring it's concepts and modernise them with BigInts and out-of-the-box Typescript support.
+money-fns was heavily inspired by [money-math](https://github.com/ikr/money-math). money-fns hopes to bring it's concepts and modernise them with BigInts and out-of-the-box Typescript support.

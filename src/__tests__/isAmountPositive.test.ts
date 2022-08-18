@@ -15,3 +15,7 @@ test("isAmountPositive returns false with 0.00", () => {
 test("isAmountPositive returns true with 0.01", () => {
   expect(isAmountPositive("0.01")).toBe(true);
 });
+
+test("isAmountPositive returns false with -0.01", () => {
+  expect(isAmountPositive("-0.01")).toBe(false);
+});

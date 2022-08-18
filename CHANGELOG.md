@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed addAmount to addAmounts
 - sumAmounts now expects an Amount[] parameter
 
+### Fixed
+
+- Incorrect output for negative values for floatToAmount
+- isAmountPositive incorrectly returning true for negative subdecimal values e.g. -0.01
+
 ## [1.0.0-alpha.2] - 2022-08-18
 
 ### Fixed

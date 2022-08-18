@@ -31,14 +31,15 @@ export function isAmountPositive(amount: Amount): boolean {
 }
 
 export function floatToAmount(float: number): Amount {
-  const full = Math.floor(float);
-  const sub = BigInt(Math.round((float % 1) * 100));
+  const full = float > 0 ? Math.floor(float) : Math.ceil(float);
+  const sub = BigInt(Math.abs(Math.round((float % 1) * 100)));
   return `${BigInt(full)}.${subToDoubleDigit(sub)}`;
 }
 
 function toInteger(amount: Amount): bigint {
   const [full, sub] = amount.split(".");
-  return BigInt(full) * 100n + BigInt(sub);
+  const result = BigInt(`${full}${sub}`);
+  return result;
 }
 
 function toAmount(integer: bigint): Amount {
