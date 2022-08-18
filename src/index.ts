@@ -54,6 +54,12 @@ export function formatAmount(amount: Amount, currency: CurrencyCode): string {
   return Number(amount).toLocaleString("en-US", { maximumFractionDigits: 2 });
 }
 
+const AMOUNT_REGEX = /^\-?\d+\.\d\d$/;
+
+export function isValidAmount(value: string): boolean {
+  return new RegExp(AMOUNT_REGEX).test(value);
+}
+
 export function floatToAmount(float: number): Amount {
   const full = float > 0 ? Math.floor(float) : Math.ceil(float);
   const sub = BigInt(Math.abs(Math.round((float % 1) * 100)));
