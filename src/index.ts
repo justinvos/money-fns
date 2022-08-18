@@ -1,189 +1,48 @@
-const defaults: Options = {
-  precision: 2
+export type Amount = `${bigint}.${bigint}` | `${bigint}.0${bigint}`;
+
+const myAmount: Amount = "12.0";
+
+export function sumAmounts(...amounts: Amount[]): Amount {
+  const integers = amounts.map(toInteger);
+  const integerTotal = integers.reduce((accumulator, integer) => {
+    return accumulator + integer;
+  }, 0n);
+  return toAmount(integerTotal);
 }
 
-interface OptionsParameter {
-  precision?: number
+export function addAmount(augend: Amount, addend: Amount): Amount {
+  return toAmount(toInteger(augend) + toInteger(addend));
 }
 
-interface Options {
-  precision: number
+export function subtractAmount(minuend: Amount, subtrahend: Amount): Amount {
+  return toAmount(toInteger(minuend) - toInteger(subtrahend));
 }
 
-/**
- * Converts a float to the nearest amount value.
- * 
- * @param {number} float 
- * @param {object} options 
- * @returns {string}
- */
-export function floatToAmount(float: number, options: OptionsParameter = {}): string {
-  const { precision }: Options = { ...defaults, ...options }
-  const int = BigInt(Math.round(float * (10 ** precision)))
-  return fromInt(int)
+export function multiplyAmount(amount: Amount, factor: bigint): Amount {
+  return toAmount(toInteger(amount) * factor);
 }
 
-/**
- * Converts amount value into the bigint number of cents.
- * 
- * @param {string} amount 
- * @param {OptionsParameter} options 
- * @returns {bigint}
- */
-function toInt(amount: string, options: OptionsParameter = {}): bigint {
-  const { precision } = { ...defaults, ...options }
-  const [full, sub] = amount.split('.')
-  return BigInt(full) * BigInt(10 ** precision) + BigInt(sub)
+export function divideAmount(amount: Amount, divisor: bigint): Amount {
+  return toAmount(toInteger(amount) / divisor);
 }
 
-/**
- * Converts a bigint number of cents into an amount value. 
- * 
- * @param {bigint} cents 
- * @param {OptionsParameter} options 
- * @returns {string}
- */
-function fromInt(sub: bigint, options: OptionsParameter = {}): string {
-  const { precision } = { ...defaults, ...options }
-  const full = sub / BigInt(10 ** precision)
-  const remainder = sub % BigInt(10 ** precision)
-  return `${full}.${remainder.toString().padStart(precision, '0')}`
+export function isAmountPositive(amount: Amount): boolean {
+  return toInteger(amount) > 0n;
 }
 
-/**
- * Adds the two amounts terms into a sum amount.
- * 
- * @param {string} leftAmount
- * @param {string} rightAmount 
- * @param {OptionsParameter} options
- * @returns {string}
- */
-export function addAmount(leftAmount: string, rightAmount: string, options: OptionsParameter = {}): string {
-  const total = toInt(leftAmount, options) + toInt(rightAmount, options);
-  return fromInt(total, options);
+export function floatToAmount(float: number): Amount {
+  const full = Math.floor(float);
+  const sub = Math.round((float % 1) * 100);
+  return `${BigInt(full)}.${BigInt(sub)}`;
 }
 
-/**
- * Adds all of the amounts terms into a sum amount.
- * 
- * @param {string[]} amounts 
- * @param {OptionsParameter} options
- * @returns {string}
- */
-export function sumAmounts(amounts: string[], options: OptionsParameter = {}): string {
-  return fromInt(amounts.reduce((total, amount) => {
-    return total + toInt(amount, options);
-  }, BigInt(0)), options);
+function toInteger(amount: Amount): bigint {
+  const [full, sub] = amount.split(".");
+  return BigInt(full) * 100n + BigInt(sub);
 }
 
-/**
- * Subtracts the subtrahend from the minuend to calculate the difference. I.e. difference = minuend - subtrahend
- * 
- * @param {string} minuend 
- * @param {string} subtrahend 
- * @param {OptionsParameter} options
- * @returns {string}
- */
-export function subAmount(minuend: string, subtrahend: string, options: OptionsParameter = {}) {
-  return fromInt(toInt(minuend, options) - toInt(subtrahend, options), options);
-}
-
-/**
- * Multiplies the amount by the factor into the product amount.
- * 
- * @param {string} number 
- * @param {number} factor 
- * @param {OptionsParameter} options
- * @returns {string}
- */
-export function scaleAmount(amount: string, factor: number, options: OptionsParameter = {}): string {
-  return fromInt(BigInt(factor) * toInt(amount, options), options);
-}
-
-/**
- * Returns whether the amount is positive or not.
- * 
- * @param {string} minuend 
- * @param {OptionsParameter} options
- */
-export function isAmountPositive(amount: string, options: OptionsParameter = {}): boolean {
-  return toInt(amount, options) > 0;
-}
-
-/**
- * Returns whether the amount is negative or not.
- * 
- * @param {string} minuend 
- * @param {OptionsParameter} options
- */
- export function isAmountNegative(amount: string, options: OptionsParameter = {}): boolean {
-  return toInt(amount, options) < 0;
-}
-
-/**
- * Returns whether the amount is zero or not.
- * 
- * @param {string} minuend 
- * @param {OptionsParameter} options
- */
- export function isAmountZero(amount: string, options: OptionsParameter = {}): boolean {
-  return toInt(amount, options) === 0n;
-}
-
-/**
- * Compares two amounts for sorting.
- * 
- * @param {string} leftAmount
- * @param {string} rightAmount
- * @param {OptionsParameter} options
- */
- export function compareAmounts(leftAmount: string, rightAmount: string, options: OptionsParameter = {}): number {
-  return Number(toInt(subAmount(leftAmount, rightAmount, options), options));
-}
-
-/**
- * Checks whether the two values are equal.
- * @param {string} leftAmount
- * @param {string} rightAmount
- * @param {OptionsParameter} options
- */
-export function isAmountEqual(leftAmount: string, rightAmount: string, options: OptionsParameter = {}): boolean {
-  return toInt(leftAmount, options) === toInt(rightAmount, options);
-}
-
-/**
- * Rounds the amount to the nearest.
- * @param {string} amount
- * @param {string} nearest
- * @param {OptionsParameter} options
- */
-export function roundAmount(amount: string, nearest: string, options: OptionsParameter = {}): string {
-  return fromInt(BigInt(Math.round(Number(toInt(amount)) / Number(toInt(nearest)))) * toInt(nearest));
-}
-
-interface FormatOptionsParameter {
-  commas?: boolean
-  decimals?: boolean
-}
-
-const formatDefaults: FormatOptionsParameter = {
-  commas: true,
-  decimals: false
-}
-
-/**
- * Formats the amount with commas and/or decimals.
- * @param {string} amount
- * @param {FormatOptionsParameter} options
- */
-export function formatAmount(amount: string, options: FormatOptionsParameter = {}): string {
-  const { commas, decimals } = { ...formatDefaults, ...options };
-
-  const number = decimals ? parseFloat(amount) : parseInt(amount);
-  
-  if (commas) {
-    return number.toLocaleString();
-  }
-
-  return number.toString();
+function toAmount(integer: bigint): Amount {
+  const full = integer / 100n;
+  const sub = integer % 100n;
+  return `${full}.${sub}`;
 }
