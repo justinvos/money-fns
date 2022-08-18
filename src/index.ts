@@ -1,4 +1,6 @@
-export type Amount = `${bigint}.${bigint}` | `${bigint}.0${bigint}`;
+type Digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+type DoubleDigit = `${Digit}${Digit}`;
+export type Amount = `${bigint}.${DoubleDigit}`;
 
 export function sumAmounts(...amounts: Amount[]): Amount {
   const integers = amounts.map(toInteger);
@@ -30,8 +32,8 @@ export function isAmountPositive(amount: Amount): boolean {
 
 export function floatToAmount(float: number): Amount {
   const full = Math.floor(float);
-  const sub = Math.round((float % 1) * 100);
-  return `${BigInt(full)}.${BigInt(sub)}`;
+  const sub = BigInt(Math.round((float % 1) * 100));
+  return `${BigInt(full)}.${subToDoubleDigit(sub)}`;
 }
 
 function toInteger(amount: Amount): bigint {
@@ -42,5 +44,9 @@ function toInteger(amount: Amount): bigint {
 function toAmount(integer: bigint): Amount {
   const full = integer / 100n;
   const sub = integer % 100n;
-  return `${full}.${sub}`;
+  return `${full}.${subToDoubleDigit(sub)}`;
+}
+
+function subToDoubleDigit(sub: bigint) {
+  return String(sub).padStart(2, "0") as `${DoubleDigit}`;
 }
