@@ -2,7 +2,7 @@ type Digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 type DoubleDigit = `${Digit}${Digit}`;
 export type Amount = `${bigint}.${DoubleDigit}`;
 
-export function sumAmounts(...amounts: Amount[]): Amount {
+export function sumAmounts(amounts: Amount[]): Amount {
   const integers = amounts.map(toInteger);
   const integerTotal = integers.reduce((accumulator, integer) => {
     return accumulator + integer;
@@ -10,8 +10,8 @@ export function sumAmounts(...amounts: Amount[]): Amount {
   return toAmount(integerTotal);
 }
 
-export function addAmount(augend: Amount, addend: Amount): Amount {
-  return toAmount(toInteger(augend) + toInteger(addend));
+export function addAmounts(...amounts: Amount[]): Amount {
+  return sumAmounts(amounts);
 }
 
 export function subtractAmount(minuend: Amount, subtrahend: Amount): Amount {

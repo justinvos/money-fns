@@ -1,5 +1,5 @@
-import { addAmount } from "../index";
+import { addAmounts } from "../index";
 
-test("addAmount adds each amount item with default options", () => {
-  expect(addAmount("1.00", "2.00")).toBe("3.0");
+test("addAmounts adds each amount item with default options", () => {
+  expect(addAmounts("1.00", "2.00")).toBe("3.00");
 });
