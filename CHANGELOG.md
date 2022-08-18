@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0-alpha.3]
+## [1.0.1] - 2022-08-19
+
+### Removed
+
+- Banner image from npm package files
+
+## [1.0.0] - 2022-08-19
 
 ### Added
 
@@ -27,9 +33,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Incorrect output for negative values for floatToAmount
 - isAmountPositive incorrectly returning true for negative subdecimal values e.g. -0.01
-
-## [1.0.0-alpha.2] - 2022-08-18
-
-### Fixed
-
 - Amount type to not support more than 2 subdecimal digits.
