@@ -20,7 +20,7 @@ yarn add money-fns
 
 ## Usage
 
-```
+```ts
 import { addAmounts, compareAmount, discountAmount, floatToAmount, formatAmount, isAmountPositive, isAmountNegative, isAmountZero, isValidAmount, multiplyAmount, subtractAmount, sumAmounts } from 'money-fns'
 
 addAmounts('1.00', '2.00') // '3.00'
@@ -43,6 +43,8 @@ isValidAmount('0.00') // true
 
 formatAmount('USD', '1234.00') // 1,234.00
 ```
+
+Try now with [RunKit](https://runkit.com/npm/money-fns)
 
 ### Amount datatype
 
