@@ -18,8 +18,15 @@ export function subtractAmount(minuend: Amount, subtrahend: Amount): Amount {
   return toAmount(toInteger(minuend) - toInteger(subtrahend));
 }
 
-export function multiplyAmount(amount: Amount, factor: bigint): Amount {
+export function scaleAmount(amount: Amount, factor: bigint): Amount {
   return toAmount(toInteger(amount) * factor);
+}
+
+export function multiplyAmount(
+  multiplier: Amount,
+  multiplicand: Amount
+): Amount {
+  return toAmount((toInteger(multiplier) * toInteger(multiplicand)) / 100n);
 }
 
 export function divideAmount(amount: Amount, divisor: bigint): Amount {
