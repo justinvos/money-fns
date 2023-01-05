@@ -25,7 +25,8 @@ import { addAmounts, compareAmount, discountAmount, floatToAmount, formatAmount,
 
 addAmounts('1.00', '2.00') // '3.00'
 subtractAmount('3.00', '2.00') // '1.00'
-multiplyAmount('5.00', 3n) // '15.00'
+multiplyAmount('5.00', '1.15') // '5.75'
+scaleAmount('5.00', 3n) // '15.00'
 
 floatToAmount(4.507) // '4.51'
 
@@ -41,7 +42,7 @@ compareAmount('1.00', '3.00') // -1
 isValidAmount('0') // false
 isValidAmount('0.00') // true
 
-formatAmount('USD', '1234.00') // 1,234.00
+formatAmount('1234.00', 'USD') // 1,234.00
 ```
 
 Try now with [RunKit](https://runkit.com/npm/money-fns)
