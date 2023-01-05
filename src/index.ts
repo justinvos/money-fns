@@ -58,7 +58,10 @@ export function compareAmount(a: Amount, b: Amount): number {
 export type CurrencyCode = "USD";
 
 export function formatAmount(amount: Amount, currency: CurrencyCode): string {
-  return Number(amount).toLocaleString("en-US", { maximumFractionDigits: 2 });
+  return Number(amount).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 const AMOUNT_REGEX = /^\-?\d+\.\d\d$/;
