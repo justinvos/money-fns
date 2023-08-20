@@ -6,11 +6,14 @@ export type Amount = `${bigint}.${DoubleDigit}`;
  * Sums (adds) all the Amounts in an array.
  */
 export function sumAmounts(amounts: Amount[]): Amount {
-  const integers = amounts.map(toInteger);
-  const integerTotal = integers.reduce((accumulator, integer) => {
+  const integerTotal = toIntegers(amounts).reduce((accumulator, integer) => {
     return accumulator + integer;
   }, 0n);
   return toAmount(integerTotal);
+}
+
+function toIntegers(amounts: Amount[]): bigint[] {
+  return amounts.map(toInteger);
 }
 
 /**
@@ -128,10 +131,14 @@ function toInteger(amount: Amount): bigint {
 
 function toAmount(integer: bigint): Amount {
   const full = integer / 100n;
-  const sub = integer % 100n;
+  const sub = absoluteBigInt(integer) % 100n;
   return `${full}.${subToDoubleDigit(sub)}`;
 }
 
 function subToDoubleDigit(sub: bigint) {
   return String(sub).padStart(2, "0") as `${DoubleDigit}`;
+}
+
+function absoluteBigInt(value: bigint) {
+  return value === -0n || value < 0n ? -value : value;
 }
