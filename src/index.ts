@@ -1,67 +1,84 @@
 export * from "./toAmount";
-import { toAmount, Amount } from "./toAmount";
+export * from "./formatAmount";
+export * from "./currencies/jpy";
+export * from "./currencies/usd";
+import { integerToAmount, Amount } from "./integerToAmount";
 
 /**
  * Sums (adds) all the Amounts in an array.
  */
-export function sumAmounts(amounts: Amount[]): Amount {
+export function sumAmounts<TAmount extends Amount>(
+  amounts: TAmount[]
+): TAmount {
   const integerTotal = toIntegers(amounts).reduce((accumulator, integer) => {
     return accumulator + integer;
   }, 0n);
-  return toAmount(integerTotal);
+  return integerToAmount(integerTotal);
 }
 
-function toIntegers(amounts: Amount[]): bigint[] {
+function toIntegers<TAmount extends Amount>(amounts: TAmount[]): bigint[] {
   return amounts.map(toInteger);
 }
 
 /**
  * Adds all the Amount parameters.
  */
-export function addAmounts(...amounts: Amount[]): Amount {
+export function addAmounts<TAmount extends Amount>(
+  ...amounts: TAmount[]
+): TAmount {
   return sumAmounts(amounts);
 }
 
 /**
  * Subtracts an amount from another.
- * @param minuend {Amount} the base amount
- * @param subtrahend {Amount} the amount to subtract off
+ * @param minuend the base amount
+ * @param subtrahend the amount to subtract off
  */
-export function subtractAmount(minuend: Amount, subtrahend: Amount): Amount {
-  return toAmount(toInteger(minuend) - toInteger(subtrahend));
+export function subtractAmount<TAmount extends Amount>(
+  minuend: TAmount,
+  subtrahend: TAmount
+): TAmount {
+  return integerToAmount(toInteger(minuend) - toInteger(subtrahend));
 }
 
 /**
  * Scales (multiplies) an Amount by an integer factor.
  */
-export function scaleAmount(amount: Amount, factor: bigint): Amount {
-  return toAmount(toInteger(amount) * factor);
+export function scaleAmount<TAmount extends Amount>(
+  amount: TAmount,
+  factor: bigint
+): TAmount {
+  return integerToAmount(toInteger(amount) * factor);
 }
 
 /**
  * Multiplies two Amounts.
  */
-export function multiplyAmount(
-  multiplier: Amount,
-  multiplicand: Amount
+export function multiplyAmount<TAmount extends Amount>(
+  multiplier: TAmount,
+  multiplicand: TAmount
 ): Amount {
-  return toAmount((toInteger(multiplier) * toInteger(multiplicand)) / 100n);
+  throw new Error("Unimplemented");
 }
 
 /**
  * Divides the Amount by the divisor.
  */
-export function divideAmount(amount: Amount, divisor: bigint): Amount {
-  return toAmount(toInteger(amount) / divisor);
+export function divideAmount<TAmount extends Amount>(
+  amount: TAmount,
+  divisor: bigint
+): TAmount {
+  return integerToAmount(toInteger(amount) / divisor);
 }
 
 /**
  * Returns a reduced Amount by a percentage amount.
  */
-export function discountAmount(amount: Amount, percentage: number): Amount {
-  return toAmount(
-    (toInteger(amount) * (10000n - BigInt(percentage * 100))) / 10000n
-  );
+export function discountAmount<TAmount extends Amount>(
+  amount: TAmount,
+  percentage: number
+): TAmount {
+  throw new Error("Unimplemented");
 }
 
 /**
@@ -82,29 +99,20 @@ export function isAmountNegative(amount: Amount): boolean {
  * Checks if the Amount is exactly zero.
  */
 export function isAmountZero(amount: Amount): boolean {
-  throw new Error("Unimplemented");
+  return toInteger(amount) === 0n;
 }
 
 /**
  * Compares two Amounts. Useful for sorting.
  */
-export function compareAmount(a: Amount, b: Amount): number {
+export function compareAmount<TAmount extends Amount>(
+  a: TAmount,
+  b: TAmount
+): number {
   return Math.sign(Number(toInteger(a) - toInteger(b)));
 }
 
-export type CurrencyCode = "USD";
-
-/**
- * Formats the Amount to have commas at each thousand-place.
- */
-export function formatAmount(amount: Amount, currency: CurrencyCode): string {
-  return Number(amount).toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
-
-const AMOUNT_REGEX = /^\-?\d+\.\d\d$/;
+const AMOUNT_REGEX = /^\-?\d+\.\d+$/;
 
 /**
  * Checks if the string is a valid Amount.
@@ -113,17 +121,15 @@ export function isValidAmount(value: string): boolean {
   return new RegExp(AMOUNT_REGEX).test(value);
 }
 
-/**
- * Converts a number to the Amount datatype.
- */
-export function floatToAmount(float: number): Amount {
-  const full = float > 0 ? Math.floor(float) : Math.ceil(float);
-  const sub = BigInt(Math.abs(Math.round((float % 1) * 100)));
-  return `${BigInt(full)}.${subToDoubleDigit(sub)}`;
-}
-
-function toInteger(amount: Amount): bigint {
+function toInteger<TAmount extends Amount>(amount: TAmount): bigint {
   const [full, sub] = amount.split(".");
   const result = BigInt(`${full}${sub}`);
   return result;
+}
+
+export function convert<SourceAmount, TargetAmount>(
+  source: SourceAmount,
+  exchangeRate: number
+): TargetAmount {
+  throw new Error("Unimplemented");
 }

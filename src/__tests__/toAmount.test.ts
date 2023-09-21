@@ -1,13 +1,13 @@
-import { toAmount } from "../toAmount";
+import { toAmount } from "../index";
 
-test("toAmount returns correctly with no cents and default 2 precision", () => {
-  expect(toAmount(20300n)).toBe("203.00");
+test("toAmount correctly rounds 4.507 to 4.50", () => {
+  expect(toAmount(4.507)).toBe("4.50");
 });
 
-test("toAmount returns correctly with 3 precision", () => {
-  expect(toAmount(20300n, 3)).toBe("20.300");
+test("toAmount correctly converts -4.504 to -4.50", () => {
+  expect(toAmount(-4.504)).toBe("-4.50");
 });
 
-test("toAmount returns correctly with 0 precision", () => {
-  expect(toAmount(20300n, 0)).toBe("20300");
+test("toAmount correctly converts 4.504 with precision=3 to 4.504", () => {
+  expect(toAmount(4.504, { precision: 3 })).toBe("4.504");
 });

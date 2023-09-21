@@ -80,6 +80,26 @@ An Amount is defined as a number with exactly 2 subdecimal digits. E.g. `123.45`
 
 These values are passed around as `string`s but you can import the Amount type and use in your code for more specificity.
 
+### Custom Currencies
+
+```ts
+import { Digit, toAmount } from "money-fns";
+
+type NzdAmount = `${bigint}.${Digit}${Digit}`;
+
+function toNzdAmount(value: number): NzdAmount {
+  return toAmount(value, { precision: 2 });
+}
+```
+
+#### Custom currency formatting
+
+```ts
+export function formatNzdAmount(amount: NzdAmount): string {
+  return formatAmount(amount, "en-NZ");
+}
+```
+
 ## Acknowledgments
 
 money-fns was heavily inspired by [money-math](https://github.com/ikr/money-math). money-fns hopes to bring it's concepts and modernise them with BigInts and out-of-the-box Typescript support.
