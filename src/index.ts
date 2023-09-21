@@ -2,6 +2,7 @@ export * from "./toAmount";
 export * from "./formatAmount";
 export * from "./currencies/jpy";
 export * from "./currencies/usd";
+export type { Amount } from "./integerToAmount";
 import { integerToAmount, Amount } from "./integerToAmount";
 
 /**

@@ -25,4 +25,9 @@ function absoluteBigInt(value: bigint): bigint {
 
 export type Digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 
-export type Amount = `${bigint}.${bigint}` | `${bigint}`;
+export type Amount =
+  | `${bigint}`
+  | `${bigint}.${Digit}`
+  | `${bigint}.${Digit}${Digit}`
+  | `${bigint}.${Digit}${Digit}${Digit}`
+  | `${bigint}.${Digit}${Digit}${Digit}${Digit}`;

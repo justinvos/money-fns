@@ -13,7 +13,7 @@ export function toUsdAmount(value: number): UsdAmount {
  * Formats the Amount to have commas at each thousand-place.
  */
 export function formatUsdAmount(amount: UsdAmount): string {
-  return formatAmount(amount as Amount, "en-US");
+  return formatAmount(amount as Amount, { locale: "en-US", precision: 2 });
 }
 
 export type UsdAmount = `${bigint}.${Digit}${Digit}`;

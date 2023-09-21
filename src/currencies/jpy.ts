@@ -12,7 +12,7 @@ export function toJpyAmount(value: number): JpyAmount {
  * Formats the Amount to have commas at each thousand-place.
  */
 export function formatJpyAmount(amount: JpyAmount): string {
-  return formatAmount(amount, "ja-JP");
+  return formatAmount(amount, { locale: "ja-JP", precision: 0 });
 }
 
 export type JpyAmount = `${bigint}`;
