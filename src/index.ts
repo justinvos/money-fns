@@ -1,6 +1,5 @@
-type Digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
-type DoubleDigit = `${Digit}${Digit}`;
-export type Amount = `${bigint}.${DoubleDigit}`;
+export * from "./toAmount";
+import { toAmount, Amount } from "./toAmount";
 
 /**
  * Sums (adds) all the Amounts in an array.
@@ -83,7 +82,7 @@ export function isAmountNegative(amount: Amount): boolean {
  * Checks if the Amount is exactly zero.
  */
 export function isAmountZero(amount: Amount): boolean {
-  return amount === "0.00";
+  throw new Error("Unimplemented");
 }
 
 /**
@@ -127,18 +126,4 @@ function toInteger(amount: Amount): bigint {
   const [full, sub] = amount.split(".");
   const result = BigInt(`${full}${sub}`);
   return result;
-}
-
-function toAmount(integer: bigint): Amount {
-  const full = integer / 100n;
-  const sub = absoluteBigInt(integer) % 100n;
-  return `${full}.${subToDoubleDigit(sub)}`;
-}
-
-function subToDoubleDigit(sub: bigint) {
-  return String(sub).padStart(2, "0") as `${DoubleDigit}`;
-}
-
-function absoluteBigInt(value: bigint) {
-  return value === -0n || value < 0n ? -value : value;
 }
